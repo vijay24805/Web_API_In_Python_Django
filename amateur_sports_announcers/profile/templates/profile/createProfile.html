@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<p>Hi {{ request.user }} please fill your favorites</p>
+{# getting error as user not looged in, so copied code from base.html #}
+<table>
+    <tr>
+       <td>
+          <form name="ProfileForm" action="/accounts/createProfile/" method="POST">
+                {% csrf_token %}
+		{% if formError %}
+		<p>Error:{{ form.errors }}</p>
+		{% endif %}
+		{{ form.as_p }}
+                 <input type="submit" value="record"/>
+          </form>
+        </td>
+     </tr>
+</table>
+{% endblock %}

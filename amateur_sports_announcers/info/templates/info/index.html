@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+{% block otherCSS %}
+	<link rel="stylesheet" type="text/css" href="/static/info/css/style.css" />
+{% endblock %}
+
+
+{% block otherLibScript %}
+	<script type='text/javascript' src="/static/info/js/script.js"></script>
+{% endblock %}
+
+
+{% block content %}
+	<div>
+		<h1>How To Use Our API</h1>
+		<p>If you wish use our api you will need to create an account first.</p>
+		<p>After you are logged in you can use the GET request to get a json response on some of the public user information from this web application by going <a href="/api">here</a>.</p>
+		<p>Our application does not support username query for privacy reasons. If you wish to see the user's favorites you can go <a href="/api/favorites">here</a>.</p>
+	</div>
+	<br/>
+	<div>
+		<h1>How To Use Twitch</h1>
+		<p>To watch the latest streams simply go <a href="/twitch">here</a>, after you are logged in.</p>
+		<p>Some of the features that you can use on this page includes: <br/>
+		1. Sorting the Streams by Favorites, Streamer, etc. <br/>
+		2. Clicking on a video to watch. <br/>
+		3. Searching for specific streams or channels. <br/>
+		4. Favoriting a channel. Note: The favorites can be called by our api, but the username is hidden. <br/>
+		</p>
+	</div>
+{% endblock %}
+
+
+

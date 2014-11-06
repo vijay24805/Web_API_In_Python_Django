@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block otherCSS %}
+    <link rel="stylesheet" type="text/css" href="/static/twitch/css/style.css" />
+{% endblock %}
+
+{% block otherLibScript %}
+    <script type='text/javascript' src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+    <script type='text/javascript' src="/static/twitch/js/script.js"></script>
+    
+    <script>
+        var apiKey = 'AIzaSyBvhjAvsELTtd0u9JNi3ZFRGnWx-nzXt8Y';
+        function getVideos(keyword) {
+            $.ajax({
+                type: "GET",
+                url: "https://www.googleapis.com/youtube/v3/search?part=snippet&q=" + encodeURIComponent(keyword) + "&type=video&videoEmbeddable=true&key=" + apiKey
+            })
+            .done(function(data) {
+                var videos = "";
+                for(var i=0; i< data.items.length; i++) {
+                    videos += '<li><a class="setVideo" id="' + data.items[i].id.videoId + '">' + data.items[i].snippet.title + '</a></li>';
+                }
+                $("#videos").append(videos);
+                $(".setVideo").click(function() {
+                    $("#youtubeembed").attr('src', '//www.youtube.com/embed/' + $(this).attr('id') + "?autoplay=1");
+                });
+            });
+        }
+        $(document).ready(function() {
+            var popularGames = Array();
+            {% for game in popular_games %}
+                popularGames.push('{{ game|safe }}');
+            {% endfor %}
+            for (var i=0; i<5; i++) {
+                getVideos(popularGames[i]);
+            }
+        });
+    </script>
+{% endblock %}
+
+{% block content %}
+<div id="videoPlayer">
+    <iframe id="youtubeembed" width="560" height="315" src="" frameborder="0" allowfullscreen></iframe>
+</div>
+<div id="videosContainer" class="inline-block" ng-app="twitterApp">
+    <h3>YouTube replays of the popular video games</h3>
+    <ul id="videos" ng-controller="TweetListCtrl">
+    </ul>
+</div>
+
+
+<script src="/static/angular/bower_components/angular/angular.js"></script>
+<script src="/static/angular/bower_components/angular-route/angular-route.js"></script>
+<script src="/static/angular/js/app.js"></script>
+<script src="/static/angular/js/services.js"></script>
+<script src="/static/angular/js/controllers.js"></script>
+<script src="/static/angular/js/filters.js"></script>
+<script src="/static/angular/js/directives.js"></script>
+
+{% endblock %}

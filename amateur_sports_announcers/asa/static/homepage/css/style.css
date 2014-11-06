@@ -1,0 +1,59 @@
+/* anything you write here will affect all webpages on this website */
+
+body, html { width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.8);}
+
+div.fullbackground {
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+div.mainContainer {
+	height: 100%;
+	width: 1150px;
+	display: table;
+	margin: auto;
+	border: 0px;
+	color: white;
+	background-color: rgba(0, 0, 0, 0.8);
+}
+div.cData {
+	display: table-cell;
+	height: 100%;
+	width: 100%;
+	vertical-align: middle;
+}
+input, textarea, select, option {
+	background: rgba(0, 0, 0, 0.5);
+}
+button {
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.carousel {
+	background: url("../img/callofduty.jpg");
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 100%;
+}
+.carousel-caption {
+	z-index: 10;
+}
+.carousel .carousel-inner {
+	height: 70%;
+}
+.carousel .item {
+	height: 100%;
+}
+
+#homeContainer {
+	height: 65%;
+	width: 100%;
+	text-align: center;
+}
+#homeContainerShader {
+	height: 100%;
+	width: 100%;
+	text-align: center;
+	background: rgba(0, 0, 0, 0.6);
+}
+.panel-body p { color: #000; }

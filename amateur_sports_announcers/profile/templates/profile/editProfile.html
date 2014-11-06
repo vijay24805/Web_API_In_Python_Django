@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% if profileExists %}
+<form method="post" action="/accounts/editProfile/" name="editProfile">
+    {% csrf_token %}
+    <table>
+        {{ formset }}
+    </table>
+   <input type="submit" value="UPDATE"> 
+</form>
+{% else %}
+<h3>Please create profile first {{ user }} </h3>
+<a href = "/accounts/createProfile/"> create </a>
+{% endif %}
+
+{% comment block %}
+<form method="post" action="">
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form }}
+    {% endfor %}
+</form>
+{% endcomment %}
+
+{% endblock %}

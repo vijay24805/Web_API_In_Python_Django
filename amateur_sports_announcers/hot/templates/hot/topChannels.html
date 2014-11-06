@@ -1,0 +1,32 @@
+{% block content %}
+</br>
+</br>
+<body style="color:white;background-color:black">
+<h3>List of Top channels</h3> 
+<form name="top channels" method="">
+<table tyle="color:white;border:5px solid red">
+  <tr>
+	<th style="border:5px solid red">Number</th>
+        <th style="border:5px solid red">Channel </th>
+        <th style="border:5px solid red">Description </th>
+        <th style="border:5px solid red">Game </th>
+        <th style="border:5px solid red">Viewers </th>
+        <th style="border:5px solid red">Databse Id </th>
+  </tr>
+  
+  {% for form in form1 %}
+    <tr>
+
+            <td style="color:white;border:5px solid red">{{forloop.counter0}}</td>
+            {% for field in form %}
+               <td style="border:5px solid red">{{ field.value }} </td>
+            {% endfor %}
+	    
+    </tr>
+  {% endfor %}
+ </table>
+</form>
+</body>
+{% endblock %}
+{% include "base.html" %}
+

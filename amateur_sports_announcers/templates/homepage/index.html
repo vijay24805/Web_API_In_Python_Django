@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<br/>
+      <!-- Showing slides below nav bar-->
+      <div id="slider" class="carousel slide" data-ride="carousel">
+         <ol class="carousel-indicators">
+            <li data-target="#slider" data-slide-to="0" class="active"></li>
+            <li data-target="#slider" data-slide-to="1"></li>
+            <li data-target="#slider" data-slide-to="2"></li>
+         </ol>
+         <div class="carousel-inner">
+            <!-- Showing slides below nav bar -->
+            <div class="item active">
+               <div class="container">
+                  <div class="carousel-caption">
+                     <h1>Welcome Gamers!</h1>
+                     
+                  </div>
+               </div>
+            </div>
+            <div class="item">
+               <div class="container">
+                  <div class="carousel-caption">
+                     <h1>Have Fun!</h1>
+                     
+                  </div>
+               </div>
+            </div>
+            <div class="item">
+               <div class="container">
+                  <div class="carousel-caption">
+                     <h1>Check out the streams!</h1>
+                    
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- glyp icons :Includes 200 glyphs in font format from the Glyphicon Halflings set. Glyphicons Halflings are normally not available for free, but their creator has made them available for Bootstrap free of cost.
+            Can be found at - http://getbootstrap.com/components/
+            -->
+         <a class="left carousel-control" href="#slider" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+         <a class="right carousel-control" href="#slider" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+      </div>
+<br/>
+<div class="container">
+ <div id="homeContainer" style="margin: 0 auto;">
+  <div class="col-lg-6">
+    <div class="panel panel-success">
+        <div class="panel-heading""><span class="glyphicon glyphicon-facetime-video"></span>Popular Games!</div>
+        <div class="panel-body">
+            <p>See replays of some of the most popular video games from YouTube!</p>
+           
+			<a role="button" id="youtube" href="#" class="btn btn-lg btn-success">Watch</a>
+		</div>			
+    </div>
+    <div class="panel panel-info">
+        <div class="panel-heading"><span class="glyphicon glyphicon-info-sign"></span>How to Use!</div>
+        <div class="panel-body" >
+            <p>Learn how to use some of the features from this application!</p>
+			<a role="button" id="info" href="#" class="btn btn-lg btn-primary">Learn To Use!!</a>            
+		</div>
+					
+	</div>
+ </div>
+ <div class="col-lg-6">
+    <div class="panel panel-primary">
+        <div class="panel-heading""><span class="glyphicon glyphicon-play"></span>Learn To Play!!</div>
+
+        <div class="panel-body">
+            <p>Watch and Learn from most popular online game streamers!!</p>
+    <div class="progress progress-striped active">
+      <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 70%">
+       <span class="sr-only">45% Complete</span>
+      </div>
+    </div>
+    <a role="button" id="twitch" href="#" class="btn btn-lg btn-warning">Live Gaming Streams!</a>		
+	</div>
+
+</div>
+
+<!-- Someone should fix the way the page displays these buttons -->
+{# include "homepage/slider.html"#}
+</div>
+
+</div>	
+<br/>
+<script>
+    $(document).ready(function() {
+        $('a#youtube').click(function() {
+            location.href = '/youtube';
+        });
+        $('a#twitch').click(function() {
+            location.href = '/twitch';
+        });
+        $('a#info').click(function() {
+            location.href = '/info';
+        });
+    });
+</script>
+{% endblock %}

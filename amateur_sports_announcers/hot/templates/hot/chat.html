@@ -1,0 +1,70 @@
+
+{% block contenti %}
+<body style="background-color:black">
+<p> &nbsp </p>
+<p> &nbsp </p>
+
+	<form name="chat" action="/hot/chat/" method="post">
+		{% csrf_token %}
+        	<div id="fb-root"></div>
+                   	<script>(function(d, s, id) {
+  			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) return;
+  			js = d.createElement(s); js.id = id;
+  			js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
+ 			fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));</script>
+
+		{% comment %}
+		<table style="border:5px solid red">
+			<tr>
+        			<th style="border:5px solid red">{{ user }} enter your comments below </th>
+			</tr>
+
+			{% for form in formset %}
+			<tr>
+     			   {# {% for field in form {} #}
+         
+           			<td style="border:5px solid red">{{ form.opinion.value }} </td>
+				<td style="border:5px solid red">{{ user }} </td>
+        			</br>
+			    {# {% endfor %} #}
+
+			</tr>
+			{% endfor %}
+		</table>
+	{% endcomment %}
+        	{% for form in formset %}
+
+		<table style="border:2px solid green">
+	            <tr>
+			{% for field in form %}
+				
+        			<td style="border:1px red;color:white"> {{ field.value}} </td>
+				<td> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>	
+				 
+							
+			{% endfor %}
+
+		<p> &nbsp </p>
+        	     </tr>
+			 </table>
+
+	 	  {% endfor %}
+		
+		<p> &nbsp </p>    	
+	
+			      {# {{ formset }} #}	
+		{# </table> #}
+		<table style="color:white">
+			{{ form }} 
+		</table>
+		<input style="color:white" type="submit" value="write">
+		<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-type="button"> </div>
+<a href="https://twitter.com/share" class="twitter-share-button" data-via="saratnsn">Tweet</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+	</form>
+</body>
+{% endblock %}
+{% include "base.html" %}

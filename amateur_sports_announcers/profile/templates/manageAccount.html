@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<form method="POST" action="/accounts/manageAccount/" name="manageAccount">
+	{% csrf_token %}
+	
+	<table>
+		{{ formset }}
+	</table>
+	<input type="submit" value="UPDATE">
+	</form>
+{% endblock %}

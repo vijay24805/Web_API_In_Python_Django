@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+
+
+{% block otherCSS %}
+	<link rel="stylesheet" type="text/css" href="/static/twitch/css/style.css" />
+{% endblock %}
+
+
+{% block otherLibScript %}
+	<script type='text/javascript' src="https://ttv-api.s3.amazonaws.com/twitch.min.js"></script>
+	<script type='text/javascript' src="/static/twitch/js/script.js"></script>
+{% endblock %}
+
+
+{% block content %}
+
+	<!--
+	<div class="authenticate">
+		<img src="http://ttv-api.s3.amazonaws.com/assets/connect_dark.png" class="twitch-connect" href="#" />
+	</div>
+	-->
+
+	<div class="authenticated">
+		<br/>
+		<h1>Hi {{ username }},</h1>
+		<p>Watch video game streams. Current featured game is: {{ featuredGame }}</p>
+		<div class="video">		
+			<object type="application/x-shockwave-flash" height="378" width="620" id="live_embed_player_flash" 
+				data="http://www.twitch.tv/widgets/live_embed_player.swf?channel={{ streamID }}" 
+				bgcolor="#000000"><param name="allowFullScreen" value="true" />
+				<param name="allowScriptAccess" value="always" />
+				<param name="allowNetworking" value="all" />
+				<param name="movie" value="http://www.twitch.tv/widgets/live_embed_player.swf" />
+				<param name="flashvars" 
+				value="hostname=www.twitch.tv&channel={{ streamID }}&auto_play=true&start_volume=25" />
+			</object>
+            <div id="tweets">
+                <h3>Tweets about : {{ featuredGame }}</h3>
+                {% for tweet in tweets %}
+                    <li>{{ tweet|safe }}</li>
+                {% endfor %}
+            </div>
+		</div>
+		<div>
+			<table class="table">
+				<form class="navbar-form navbar-left" role="search" action="/twitch" medthod="GET">
+					<div class="form-group">
+						<input id="searchtwitchinput" type="text" class="form-control" placeholder="Search for random streamers, descriptions, and/or games." name="search">
+						<button id="searchtwitchbutton" type="submit" class="btn btn-default">Search</button>
+					</div>
+				</form>
+				<tr class="headerRow">
+					<td>Favorite</td>
+					<td><a href="/twitch/?search={{searchLi}}&sort=1&watch={{ streamID }}">Streamer</a></td>
+					<td><a href="/twitch/?search={{searchLi}}&sort=2&watch={{ streamID }}">Description</a></td>
+					<td><a id="sortbyviewers" href="/twitch/?search={{searchLi}}&sort=3&watch={{ streamID }}">Viewers</a></td>
+					<td><a href="/twitch/?search={{searchLi}}&sort=4&watch={{ streamID }}">Game</a></td>
+					<td></td>
+				</tr>
+				{% if favLiLenBool %}
+                    {% for stream in featuredLi %}
+                        {% if stream.5 in favLi %}
+                            {% if stream.5 == streamID %}
+				                <tr class="activeStream">
+                            {% else %}
+				                <tr class="favStream">
+                            {% endif %}
+                            
+                            {% for dataInStream in stream %}
+                                {% if forloop.first %}
+					                <td><a href="/twitch/?favorite={{ stream.5 }}&watch={{ streamID }}">
+						                <span class="glyphicon glyphicon-heart"></span></a></td>
+                                {% else %}
+					                <td>
+                                        {% if forloop.last %}
+                                            {% if stream.5 == streamID %}
+						                        <p><a role="button" class="btn btn-lg btn-success">Watching</a></p>
+                                            {% else %}
+						                        <p><a role="button" href="/twitch/?search={{searchLi}}&watch={{dataInStream}}" 
+						                            class="btn btn-lg btn-success">Watch</a></p>
+                                            {% endif %}
+                                        {% else %}
+                                            {{dataInStream}}
+                                        {% endif %}
+					                </td>
+                                {% endif %}
+                            {% endfor %}
+				                </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+                
+                {% for stream in featuredLi %}
+                    {% if stream.5 not in favLi %}
+					    {% if stream.5 == streamID %}
+				            <tr class="activeStream">
+                        {% else %}
+				            <tr>
+                        {% endif %}
+                        
+                        {% for dataInStream in stream %}
+                            {% if forloop.first %}
+					            <td><a href="/twitch/?favorite={{ stream.5 }}&watch={{ streamID }}">
+						            <span class="glyphicon glyphicon-heart-empty"></span></a></td>{% else %}
+					            <td>
+                                    {% if forloop.last %}
+                                        {% if stream.5 == streamID %}
+						                    <p><a role="button" class="btn btn-lg btn-success">Watching</a></p>
+                                        {% else %}
+						                    <p><a role="button" href="/twitch/?search={{searchLi}}&watch={{dataInStream}}"
+						                        class="btn btn-lg btn-success">Watch</a></p>{% endif %}{% else %}{{dataInStream}}{% endif %}
+					            </td>
+                            {% endif %}
+                        {% endfor %}
+				            </tr>
+                    {% endif %}
+                {% endfor %}
+			</table>
+		</div>
+	</div>
+{% endblock %}
+
+
+

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+   <form name="ThreadPosts" action="1/papam"  method="POST">
+	{% csrf_token %}
+
+	{% for form in formset %}
+
+                <table style="border:2px solid green">
+                    <tr>
+                       {#  {% for field in form %} #}
+
+                                <td style="border:1px red"> {{ form.post}} </td>
+				<td style="border:1px red"> {{ form.User_id}} </td>
+				<td style="border:1px red"> <a href="{% url "hot.views.threads" 'a' %}"> View Threads </a></td>
+                                <td> &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp</td>
+
+
+ 	{#                   {% endfor %} #}
+
+                <p> &nbsp </p>
+                     </tr>
+                         </table>
+
+                  {% endfor %}
+	<table> 
+                {{ form.as_p }}
+        </table>
+	 
+	<input type="submit" value="create new Thread">
+    </form>
+{% endblock %}

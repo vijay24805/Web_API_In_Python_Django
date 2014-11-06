@@ -1,0 +1,127 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>{{ title|default:"Amateur Game Players" }}</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="{% static 'homepage/css/style.css' %}" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="{% static 'homepage/js/index.js' %}"></script>
+		<script>
+			window.onload = function() {
+				//checks to see if the script.js containing jQuery is loaded
+				if (!window.jQuery) {  
+					alert("Error: Unable to load jQuery!");
+				}
+			}
+		</script>
+		<!-- Bootstrap -->
+		<!-- Latest compiled and minified CSS -->
+		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+		<![endif]-->
+		<style type="text/css"></style>
+		{% block otherCSS %}{% endblock %}
+		{% block otherLibScript %}{% endblock %}
+	</head>
+	<body>
+		<!-- adding header bar -->
+		<div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
+			<div class="container">
+				<div class="navbar-header" style="z-index: -1">
+					<a class="navbar-brand" href="/">Amateur Game Players</a>
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#b-menu-1">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				</div>
+				<div class="collapse navbar-collapse" id="b-menu-1">
+					<ul class="nav navbar-nav navbar-right">
+						{# getting the error user is not logged in even thoough he is logged -- Sarat #}
+						{% if not request.user.is_authenticated or not logged_in %} 
+						<li><a href="/accounts/login/">Sign In</a></li>
+						<li><a href="/accounts/signup/">Sign Up</a></li>
+						{% endif %}
+
+						{% if request.user.is_authenticated or logged_in %}
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+							<span class="glyphicon glyphicon-list"></span><b class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a href="/hot/channels/">Channels</a></li>
+								<li><a href="/hot/chat/">Chat</a></li>
+								<li><a href="/sentimentAnalysis/analysis/">Sentiment</a></li>
+							</ul>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<span class="glyphicon glyphicon-user"></span><b class="caret"></b></a>
+
+							<ul class="dropdown-menu">
+								<li><a href="/accounts/manageAccount/">Manage Account</a></li>
+								<li><a href="/accounts/createProfile/">Create Profile</a></li>
+								<li><a href="/accounts/viewProfile/">View Profile</a></li>
+								<li><a href="/accounts/editProfile/">Edit Profile</a></li>	
+								<li><a href="/accounts/logout/" id="logout">Log out</a></li>
+							</ul>
+						</li>
+						{% endif %}
+					</ul>
+				</div> 
+			</div> 
+		</div>
+		<!-- end of header bar-->
+		<div class="fullbackground">
+			<div class="mainContainer">
+				<div class="cData">
+					<br/>
+					{% block content %}
+					{% endblock %}
+					<br/>
+				</div>
+			</div>
+		</div>
+
+		<!-- adding footers -->
+		<footer>
+			<nav class="navbar navbar-inverse navbar-fixed-bottom" role="navigation">
+				<div class="container">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#b-menu-2">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+					</div>
+                    <div class="collapse navbar-collapse" id="b-menu-2">
+						<ul class="nav navbar-nav navbar-left">
+							<li><a href="#">Contact Us</a></li> 
+							<li><a href="#">Feedback</a></li> 
+							<li><a href="#">About</a></li> 
+							<li><a href="#">Help</a></li> 
+							<li><a href="#">Features</a></li> 
+						</ul>
+					</div>
+				</div>
+			</nav>
+		</footer>
+		<!-- end of footer -->
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	</body>
+</html>
+

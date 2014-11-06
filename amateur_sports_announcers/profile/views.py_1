@@ -1,0 +1,219 @@
+from django.shortcuts import render, redirect
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
+from models import ProfileForm,UserProfile
+from django.http import Http404
+from forms import ManageAccount
+from django.shortcuts import render
+import urllib2
+from django.http import HttpResponseRedirect
+import json as simplejson
+
+#storing createProfile request object
+createProfileReqPost = " "
+createProfileReqPostFavoriteChannel = " "
+createProfileReqPostFavoriteTeam= " "
+createProfileReqPostComment= " "
+userId=0
+
+
+#creating user profile i.e his favorite channels, announcers etc..
+#@login_required(login_url="/notes/index")
+def createProfile(request):
+ #  i,j,k,l=getProfileReqPost()
+  # print("getProfileReqPost()",i,j,k,l)
+   global createProfileReqPostFavoriteChannel
+   global createProfileReqPostFavoriteTeam
+   global createProfileReqPostComment
+   global userId
+   print("entered createProfile")
+   logged_in = True
+   #instanceModel = HotListModel(instance = HotFavList(id = "20",Channel="ESPN-FOX",Description="hi",Game = "233",viewers="300"))
+   #instanceModel = HotListModel(instance = HotList(id=2,Channel="ESPN",Game="XXX",viewers="200"))
+   #if instanceModel.is_valid():
+	#instanceModel.save()
+   #saveHotList()	
+   user=request.user
+   form= UserProfile(id=108,mainUser_id=33,FavoriteChannel="Halloween",FavoriteTeam="XXC",Comment="manual insert")
+   form.save()
+
+   #print("entered createProfile -->user is" , user)
+   if request.method == "POST":
+	a = User.objects.get(pk=1)
+	print("user obj",a)
+	#user_1 = User.objects.create_user('Chevy Chase2448', 'chevy@chase1.com', 'chevyspassword')
+        form= UserProfile(id=100,mainUser_id=33,FavoriteChannel="Halloween",FavoriteTeam="XXC",Comment="manual insert")
+	#print(form.FavoriteChannel)
+	print("tested form",form)
+        #if form.is_valid():
+        print("tested form is valid")
+        form.save()
+	form= UserProfile(id=109,mainUser_id=33,FavoriteChannel="Halloween",FavoriteTeam="XXC",Comment="manual insert")
+        form.save()
+        
+
+	#instanceModel = HotListModel(instance = HotFavList1(id=1,Channel1="HOX"))
+	#if  not instance.is_valid():
+	#	print("true")
+	#saveHotList()  
+	#else:
+	#	print("instance model is not valid")
+	createProfileReqPostFavoriteChannel = request.POST.get('FavoriteChannel')
+	createProfileReqPostFavoriteTeam = request.POST.get('FavoriteTeam')
+	createProfileReqPostComment = request.POST.get('Comment')
+	userId = request.user.id
+	print("request.POST.userId",userId)
+
+#	i,j,k,l = getProfileReqPost()
+#	print("getProfileReqPost() userId",l)
+	form = ProfileForm(request.POST , instance=UserProfile(mainUser=request.user))
+        print("entered in Views for profile")
+	if not form.is_valid():
+                print(form.errors)
+                print("form is not valid")
+                return render(request, "profile/createProfile.html",{"form":form})
+
+	#saving in DB
+        form.save()
+	print("entered in Views for profile")
+        print("request.post()", request.POST.get('Comment'))
+        profile  =  UserProfile.objects.filter(mainUser_id=request.user.id).order_by('-id')[0]
+	print("create profile mainUser_id",profile.Comment )
+        comment = request.POST.get('Comment')
+        Profile_Comment = profile.Comment
+
+        print("request.POst.save.DB",Profile_Comment)
+        if comment == Profile_Comment:
+                print("equal")
+        else:
+                print("false")
+
+
+        return redirect("/accounts/viewProfile/") 
+   else:
+	context = {'logged_in': logged_in , 'form': ProfileForm()}
+        return render(request, "profile/createProfile.html",context)
+
+def viewProfile(request):
+	logged_in = True
+	from django.forms.models import modelformset_factory
+        print("entered in view profile")
+        
+	if request.user.is_authenticated():
+		user = request.user.username
+	print("current user is", user)
+	print("user is", request.user.id)
+	#for e in UserProfile.objects.filter(user_id=request.user.id):
+		#print(e.objects.count())
+	#	print (e.id,e.user,e.FavoriteChannel)
+#	print("user profile objects", UserProfile.objects.get('user_id'=3))
+	if UserProfile.objects.filter(mainUser_id=request.user.id).count() > 0:
+		profileExists = True
+		profile  =  UserProfile.objects.filter(mainUser_id=request.user.id).order_by('-id')[0]
+		#       profile = UserProfile.objects.all().reverse()[0]
+	        print(profile)
+        	#print(profile.id,profile.user,profile.FavoriteChannel)
+	#	hotForm = HotListModel(instance=top10HotList)
+      		form = ProfileForm(instance=profile)
+		#return render(request, "hot/barchart.html",{"form1":HotListObjset,"top10":simplejson.dumps(top10Viewers)})
+	        return render(request, "profile/viewProfile.html",{"form":form,"profileExists":profileExists,'logged_in':chkLogIn(request)})
+	else:
+		profileExists = False
+		context = {'logged_in': logged_in , 'profileExists': profileExists}
+		return render(request, "profile/viewProfile.html",context)
+   
+def chkLogIn(request):
+    '''
+    check if user is logged in, added by Joseph
+    '''
+    logged_in = False
+    user = request.user
+    if user.is_authenticated():
+        logged_in = True
+    return logged_in
+
+#edit user profile
+def editProfile(request):
+	logged_in = True
+	from django.forms.models import modelformset_factory  
+        print("entered in view profile")
+	#instance = UserProfile(mainUser=request.user)
+        ProfileFormset = modelformset_factory(UserProfile,exclude=('mainUser',),max_num=1,can_delete=True)
+        uid = User.objects.get(id=request.user.id)
+        print("user is", uid)
+        print("printformset is", ProfileFormset)
+        if request.method == "POST":
+               # user = UserProfile(request.POST,user=request.user)
+               #form = ProfileForm(request.POST , instance=UserProfile(user=request.user))
+               #print("request.post", request.POST)
+               #ProfileFormset = inlineformset_factory(User,form,can_delete=True,extra=1)
+               formset = ProfileFormset(request.POST,request.FILES)
+               print("request.post",request.POST)
+               print("entered in formset")
+               print("formset value is", formset)
+               if not formset.is_valid():
+                       print("form is not valid")
+                       print(formset.errors())
+               else:
+                       print("saving the form")
+                       formset.save()
+		       context = {'logged_in': logged_in }
+                       return redirect("/accounts/viewProfile",context)
+        else:
+         print("entered GET block")
+         if UserProfile.objects.all().filter(mainUser_id=request.user.id).count() > 0:
+	       profileExists = True
+               formset = ProfileFormset(queryset=UserProfile.objects.all().filter(mainUser_id=request.user.id).order_by('-id')[:1])
+	       #formset = ProfileFormset(queryset=UserProfile.objects.latest('id'))
+              
+#               print("form is", ProfileForm(queryset=UserProfile.objects.filter(FavoriteChannel__startswith='FO')))
+	       context = {'logged_in': logged_in , "form":ProfileForm(),"formset":formset,"profileExists":profileExists}
+               return render(request, "profile/editProfile.html",context)
+                     
+         else:
+		profileExists = False
+		context = {'logged_in': logged_in , 'profileExists': profileExists}
+		return render(request, "profile/editProfile.html",context)
+
+# user can edit his password,first name, last name and email id here
+def manageAccount(request):
+  logged_in = True
+  from django.forms.models import modelformset_factory
+  UserFormset=modelformset_factory(User,max_num=1,fields=("password","first_name","last_name","email",))
+  print("entering manageAccount")
+  if request.method == "POST":
+	formset = UserFormset(request.POST,request.FILES)
+	
+	if formset.is_valid():
+		formset.save()
+		print("User password and other details changed")
+		return redirect("/#/")
+	else:
+		print (formset.errors())
+
+  else:
+	if User.objects.all().filter(id=request.user.id).count() > 0:
+               profileExists = True
+               formset = UserFormset(queryset=User.objects.all().filter(id=request.user.id).order_by('-id')[:1])
+               print("formset is", formset)
+	       context = {'logged_in': logged_in , "formset":formset,"profileExists":profileExists }
+               return render(request, "profile/manageAccount.html",context)
+        else:
+                context = {'logged_in': logged_in , 'profileExists': profileExists}
+                return render(request, "profile/manageAccount.html",context) 
+
+#second way to implement Manage Account
+#def manageAccount(request):
+#	if request.method == "POST":
+#		accountForm=ManageAccount(request.POST,instance = request.user.id)
+		#for e in accountForm.objects.all():
+		#	print (e.username)
+#		if accountForm.is_valid():
+#			accountForm.save()
+#		else:
+#			print(accountForm.errors())
+#	else:
+#		return render(request, "accounts/manageAccount.html",{"form":ManageAccount() })
+
+#		return render(request,"/accounts/manageAccount.html",{"formset":ManageAccount()})
+

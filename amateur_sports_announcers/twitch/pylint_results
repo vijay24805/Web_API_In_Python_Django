@@ -1,0 +1,159 @@
+************* Module twitch.views
+E:133,33:addrem_to_user_favorites: Class 'Favorites' has no 'objects' member
+W:133,23:addrem_to_user_favorites: Unused variable 'created'
+************* Module twitch.admin
+E: 21,0:UserAdmin: class already defined line 5
+R: 21,0:UserAdmin: Too many public methods (58/20)
+************* Module twitch.urls
+C:  8,0: Invalid name "urlpatterns" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+E:  9,17: No value passed for parameter 'cls' in function call
+************* Module twitch.tests
+W: 32,8:TwitchMethodTests.test_sort_list: Unused variable 'top_stream_id'
+R:  8,0:TwitchMethodTests: Too many public methods (68/20)
+
+
+Report
+======
+143 statements analysed.
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |1      |1        |=          |
++-----------+-------+---------+-----------+
+|refactor   |2      |2        |=          |
++-----------+-------+---------+-----------+
+|warning    |2      |2        |=          |
++-----------+-------+---------+-----------+
+|error      |3      |3        |=          |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-------------+------+--------+---------+-----------+
+|module       |error |warning |refactor |convention |
++=============+======+========+=========+===========+
+|twitch.views |33.33 |50.00   |0.00     |0.00       |
++-------------+------+--------+---------+-----------+
+|twitch.admin |33.33 |0.00    |50.00    |0.00       |
++-------------+------+--------+---------+-----------+
+|twitch.urls  |33.33 |0.00    |0.00     |100.00     |
++-------------+------+--------+---------+-----------+
+|twitch.tests |0.00  |50.00   |50.00    |0.00       |
++-------------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|W0612      |2           |
++-----------+------------+
+|R0904      |2           |
++-----------+------------+
+|E1120      |1           |
++-----------+------------+
+|E1101      |1           |
++-----------+------------+
+|E0102      |1           |
++-----------+------------+
+|C0103      |1           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 8.60/10 (previous run: 8.60/10)
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |6      |6          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |4      |4          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |3      |3          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |6      |6          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |171    |59.17 |171      |=          |
++----------+-------+------+---------+-----------+
+|docstring |69     |23.88 |69       |=          |
++----------+-------+------+---------+-----------+
+|comment   |6      |2.08  |6        |=          |
++----------+-------+------+---------+-----------+
+|empty     |43     |14.88 |43       |=          |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+------+---------+-----------+
+|                         |now   |previous |difference |
++=========================+======+=========+===========+
+|nb duplicated lines      |0     |0        |=          |
++-------------------------+------+---------+-----------+
+|percent duplicated lines |0.000 |0.000    |=          |
++-------------------------+------+---------+-----------+
+
+
+
+External dependencies
+---------------------
+::
+
+    django 
+      \-conf 
+      | \-urls 
+      |   \-patterns (twitch.urls)
+      |   \-url (twitch.urls)
+      \-contrib 
+      | \-admin (twitch.admin)
+      | \-auth 
+      |   \-admin 
+      |   | \-UserAdmin (twitch.admin)
+      |   \-models 
+      |     \-User (twitch.views,twitch.admin,twitch.models)
+      \-core 
+      | \-exceptions 
+      |   \-ObjectDoesNotExist (twitch.views)
+      \-db 
+      | \-models (twitch.models)
+      \-http 
+      | \-HttpResponseRedirect (twitch.views)
+      \-shortcuts 
+      | \-redirect (twitch.views)
+      | \-render (twitch.views)
+      \-test 
+      | \-TestCase (twitch.tests)
+      \-views 
+        \-generic 
+          \-base 
+            \-RedirectView (twitch.urls)
+
+
+

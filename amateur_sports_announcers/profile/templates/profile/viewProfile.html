@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+Hi {{ request.user }}
+
+{% if profileExists %}
+<form name="viewProfileFormset" method="POST">
+    {% csrf_token %}
+    <table style="border:5px solid red">
+	<tr>
+	   <th style="border:5px solid red">Field Name </th>
+	   <th style="border:5px solid red">Field Value </th>
+	</tr>		
+    {% for field in form %}
+	<tr>
+	   <td style="border:5px solid red">{{ field.name }} </td>
+	   <td style="border:5px solid red">{{ field.value }} </td> 
+	</tr>
+	</br>
+     {% endfor %}	
+
+    </table>
+  {#  <input type="submit" value="edit"> % #}
+</form>
+{% else %}
+  <h1> Please create Profile first </h1>
+  <a href = "/accounts/createProfile/"> create </a>
+{% endif %}
+<a href="/accounts/editProfile">Edit </a>
+{% endblock %}
+
+	

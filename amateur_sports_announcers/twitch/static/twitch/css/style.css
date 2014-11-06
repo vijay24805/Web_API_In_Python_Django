@@ -1,0 +1,65 @@
+#videoPlayer {
+    display:inline-block; vertical-align:top; width: 560px;
+}
+div.inline-block {
+    display:inline-block;
+}
+div#videosContainer {
+    width: 500px;
+}
+div#videosContainer h3 { 
+    margin-left: 20px;
+}
+ul#videos {
+    display:inline-block; width: 500px;
+}
+ul#videos li a:hover {
+    cursor: pointer;
+}
+#live_embed_player_flash {
+    display: inline-block;
+    float: left;
+}
+
+#tweets {
+    list-style-type: none;
+    text-align: left;
+    width: 450px;
+    float: left;
+    margin-left:  25px;
+}
+#tweets h3 { margin-top: 0; padding-top: 0; }
+#tweets li {
+    border-bottom: 1px dotted #fff; 
+    margin-bottom: 2px; 
+    padding-bottom:2px; 
+    font-size: 10px;
+}
+tr {
+	/* height: 60px; */
+}
+
+.authenticated {
+	text-align: center;
+}
+.video {
+	z-index:-10;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.headerRow {
+	background: black;
+}
+.headerRow > td {
+	font-size: large;
+	color: white;
+}
+.activeStream {
+	background: #006633;
+	color: white;
+}
+.favStream {
+	background: #893843;
+	color: white;
+}

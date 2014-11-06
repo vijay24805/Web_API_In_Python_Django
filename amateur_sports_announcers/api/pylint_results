@@ -1,0 +1,223 @@
+************* Module api.serializers
+F:  4,0: Unable to import 'rest_framework'
+R: 15,4:TwitchSerializer.Meta: Too few public methods (0/2)
+R: 24,4:TwitchSerializer.get_favorites: Method could be a function
+R:  8,0:TwitchSerializer: Too few public methods (1/2)
+F:  4,0: Unable to import 'rest_framework'
+R: 15,4:TwitchSerializer.Meta: Too few public methods (0/2)
+R: 24,4:TwitchSerializer.get_favorites: Method could be a function
+R:  8,0:TwitchSerializer: Too few public methods (1/2)
+F:  4,0: Unable to import 'rest_framework'
+R: 15,4:TwitchSerializer.Meta: Too few public methods (0/2)
+R: 24,4:TwitchSerializer.get_favorites: Method could be a function
+R:  8,0:TwitchSerializer: Too few public methods (1/2)
+************* Module api.urls
+C: 14,0: Line too long (84/80)
+F:  5,0: Unable to import 'rest_framework'
+C:  8,0: Invalid name "router" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 12,0: Invalid name "urlpatterns" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 14,0: Line too long (84/80)
+F:  5,0: Unable to import 'rest_framework'
+C:  8,0: Invalid name "router" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 12,0: Invalid name "urlpatterns" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 14,0: Line too long (84/80)
+F:  5,0: Unable to import 'rest_framework'
+C:  8,0: Invalid name "router" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+C: 12,0: Invalid name "urlpatterns" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+************* Module api.views
+F:  4,0: Unable to import 'rest_framework'
+E: 15,15:TwitchViewSet: Class 'Favorites' has no 'objects' member
+R:  9,0:TwitchViewSet: Too few public methods (0/2)
+F:  4,0: Unable to import 'rest_framework'
+E: 15,15:TwitchViewSet: Class 'Favorites' has no 'objects' member
+R:  9,0:TwitchViewSet: Too few public methods (0/2)
+F:  4,0: Unable to import 'rest_framework'
+E: 15,15:TwitchViewSet: Class 'Favorites' has no 'objects' member
+R:  9,0:TwitchViewSet: Too few public methods (0/2)
+R:  1,0: Similar lines in 3 files
+==api.serializers:3
+==api.serializers:3
+==api.serializers:3
+from rest_framework import serializers
+from twitch.models import Favorites
+
+
+class TwitchSerializer(serializers.ModelSerializer):
+    """
+    api class that sets up the returns
+    """
+    def __init__(self):
+        pass
+    favorites = serializers.SerializerMethodField('get_favorites')
+    class Meta:
+        """
+        returns the user id and their favorites
+        """
+        def __init__(self):
+            pass
+        model = Favorites
+        fields = ('id', 'favorites')
+
+    def get_favorites(self, obj):
+        """
+        get the twitch favorites of all the users
+        """
+        return obj.favoriteStreams.split(', ')[1:]
+R:  1,0: Similar lines in 3 files
+==api.views:3
+==api.views:3
+==api.views:3
+from rest_framework import viewsets
+from api.serializers import TwitchSerializer
+from twitch.models import Favorites
+
+
+class TwitchViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    API endpoint that allows favorites to be viewed only.
+    """
+    def __init__(self):
+        pass
+    queryset = Favorites.objects.all()
+    serializer_class = TwitchSerializer
+
+R:  1,0: Similar lines in 3 files
+==api.urls:3
+==api.urls:3
+==api.urls:3
+from django.conf.urls import patterns, include, url
+from rest_framework import routers
+from api import views
+
+router = routers.DefaultRouter()
+router.register(r'favorites', views.TwitchViewSet)
+#router.register(r'favorites', views.TwitchViewSet)
+
+urlpatterns = patterns('',
+    url(r'^', include(router.urls)),
+    #url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+)
+
+
+Report
+======
+82 statements analysed.
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |9      |10       |-1.00      |
++-----------+-------+---------+-----------+
+|refactor   |15     |15       |=          |
++-----------+-------+---------+-----------+
+|warning    |0      |0        |=          |
++-----------+-------+---------+-----------+
+|error      |3      |3        |=          |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++----------+------+--------+---------+-----------+
+|module    |error |warning |refactor |convention |
++==========+======+========+=========+===========+
+|api.views |33.33 |0.00    |26.67    |0.00       |
++----------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|R0903      |9           |
++-----------+------------+
+|F0401      |9           |
++-----------+------------+
+|C0103      |6           |
++-----------+------------+
+|R0801      |3           |
++-----------+------------+
+|R0201      |3           |
++-----------+------------+
+|E1101      |3           |
++-----------+------------+
+|C0301      |3           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at 5.24/10 (previous run: 5.12/10)
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |12     |13         |-1.00      |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |9      |9          |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|method   |12     |12         |=          |100.00      |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|function |0      |0          |=          |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |93     |44.93 |93       |=          |
++----------+-------+------+---------+-----------+
+|docstring |72     |34.78 |72       |=          |
++----------+-------+------+---------+-----------+
+|comment   |3      |1.45  |3        |=          |
++----------+-------+------+---------+-----------+
+|empty     |39     |18.84 |40       |-1.00      |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+-------+---------+-----------+
+|                         |now    |previous |difference |
++=========================+=======+=========+===========+
+|nb duplicated lines      |102    |102      |=          |
++-------------------------+-------+---------+-----------+
+|percent duplicated lines |53.968 |53.968   |=          |
++-------------------------+-------+---------+-----------+
+
+
+
+External dependencies
+---------------------
+::
+
+    django 
+      \-conf 
+        \-urls 
+          \-include (api.urls)
+          \-patterns (api.urls)
+          \-url (api.urls)
+    twitch 
+      \-models 
+        \-Favorites (api.views,api.serializers)
+
+
+

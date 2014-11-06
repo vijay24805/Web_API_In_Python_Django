@@ -1,0 +1,225 @@
+************* Module admin
+C:  1,0: Missing docstring
+W:  1,0: Unused import admin
+C:  1,0: Missing docstring
+W:  1,0: Unused import admin
+************* Module __init__
+C:  1,0: Missing docstring
+C:  1,0: Missing docstring
+************* Module models
+C:  1,0: Missing docstring
+W:  1,0: Unused import models
+C:  1,0: Missing docstring
+W:  1,0: Unused import models
+************* Module static
+F:  1,0: error while code parsing: Unable to load file 'static/__init__.py' ([Errno 2] No such file or directory: 'static/__init__.py')
+************* Module templates
+F:  1,0: error while code parsing: Unable to load file 'templates/__init__.py' ([Errno 2] No such file or directory: 'templates/__init__.py')
+************* Module tests
+C:  1,0: Missing docstring
+W:  1,0: Unused import TestCase
+************* Module urls
+C:  1,0: Missing docstring
+F:  3,0: Unable to import 'info'
+C:  5,0: Invalid name "urlpatterns" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+E:  6,17: No value passed for parameter 'cls' in function call
+C:  1,0: Missing docstring
+F:  3,0: Unable to import 'info'
+C:  5,0: Invalid name "urlpatterns" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+E:  6,17: No value passed for parameter 'cls' in function call
+C:  1,0: Missing docstring
+F:  3,0: Unable to import 'info'
+C:  5,0: Invalid name "urlpatterns" (should match (([A-Z_][A-Z0-9_]*)|(__.*__))$)
+E:  6,17: No value passed for parameter 'cls' in function call
+************* Module views
+W:  4,0: Found indentation with tabs instead of spaces
+W:  5,0: Found indentation with tabs instead of spaces
+W:  6,0: Found indentation with tabs instead of spaces
+W:  7,0: Found indentation with tabs instead of spaces
+W:  8,0: Found indentation with tabs instead of spaces
+W:  9,0: Found indentation with tabs instead of spaces
+C:  1,0: Missing docstring
+C:  3,0:index: Missing docstring
+W:  4,0: Found indentation with tabs instead of spaces
+W:  5,0: Found indentation with tabs instead of spaces
+W:  6,0: Found indentation with tabs instead of spaces
+W:  7,0: Found indentation with tabs instead of spaces
+W:  8,0: Found indentation with tabs instead of spaces
+W:  9,0: Found indentation with tabs instead of spaces
+C:  1,0: Missing docstring
+C:  3,0:index: Missing docstring
+W:  4,0: Found indentation with tabs instead of spaces
+W:  5,0: Found indentation with tabs instead of spaces
+W:  6,0: Found indentation with tabs instead of spaces
+W:  7,0: Found indentation with tabs instead of spaces
+W:  8,0: Found indentation with tabs instead of spaces
+W:  9,0: Found indentation with tabs instead of spaces
+C:  1,0: Missing docstring
+C:  3,0:index: Missing docstring
+R:  1,0: Similar lines in 3 files
+==views:0
+==views:0
+==views:0
+from django.shortcuts import render
+
+def index(request):
+	user = request.user
+	logged_in = False
+	if user.is_authenticated():
+		logged_in = True
+	context = { 'logged_in': logged_in }
+	return render(request, 'info/index.html', context)
+R:  1,0: Similar lines in 3 files
+==urls:0
+==urls:0
+==urls:0
+from django.conf.urls import patterns, url
+from django.views.generic.base import RedirectView
+from info import views
+
+urlpatterns = patterns('',
+    url(r'^.+$', RedirectView.as_view(url='/info/')),
+    url(r'^$', views.index, name='index'),
+)
+
+
+Report
+======
+42 statements analysed.
+
+Messages by category
+--------------------
+
++-----------+-------+---------+-----------+
+|type       |number |previous |difference |
++===========+=======+=========+===========+
+|convention |19     |317      |-298.00    |
++-----------+-------+---------+-----------+
+|refactor   |2      |11       |-9.00      |
++-----------+-------+---------+-----------+
+|warning    |23     |360      |-337.00    |
++-----------+-------+---------+-----------+
+|error      |3      |9        |-6.00      |
++-----------+-------+---------+-----------+
+
+
+
+% errors / warnings by module
+-----------------------------
+
++-------+------+--------+---------+-----------+
+|module |error |warning |refactor |convention |
++=======+======+========+=========+===========+
+|urls   |33.33 |0.00    |0.00     |10.53      |
++-------+------+--------+---------+-----------+
+|views  |0.00  |26.09   |100.00   |10.53      |
++-------+------+--------+---------+-----------+
+|tests  |0.00  |4.35    |0.00     |5.26       |
++-------+------+--------+---------+-----------+
+|models |0.00  |4.35    |0.00     |5.26       |
++-------+------+--------+---------+-----------+
+|admin  |0.00  |4.35    |0.00     |5.26       |
++-------+------+--------+---------+-----------+
+
+
+
+Messages
+--------
+
++-----------+------------+
+|message id |occurrences |
++===========+============+
+|W0312      |18          |
++-----------+------------+
+|C0111      |16          |
++-----------+------------+
+|W0611      |5           |
++-----------+------------+
+|F0401      |3           |
++-----------+------------+
+|E1120      |3           |
++-----------+------------+
+|C0103      |3           |
++-----------+------------+
+|R0801      |2           |
++-----------+------------+
+|F0010      |2           |
++-----------+------------+
+
+
+
+Global evaluation
+-----------------
+Your code has been rated at -4.05/10 (previous run: -6.70/10)
+
+Statistics by type
+------------------
+
++---------+-------+-----------+-----------+------------+---------+
+|type     |number |old number |difference |%documented |%badname |
++=========+=======+===========+===========+============+=========+
+|module   |13     |17         |-4.00      |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+|class    |0      |12         |-12.00     |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|method   |0      |9          |-9.00      |0           |0        |
++---------+-------+-----------+-----------+------------+---------+
+|function |3      |18         |-15.00     |0.00        |0.00     |
++---------+-------+-----------+-----------+------------+---------+
+
+
+
+Raw metrics
+-----------
+
++----------+-------+------+---------+-----------+
+|type      |number |%     |previous |difference |
++==========+=======+======+=========+===========+
+|code      |50     |76.92 |486      |-436.00    |
++----------+-------+------+---------+-----------+
+|docstring |0      |0.00  |99       |-99.00     |
++----------+-------+------+---------+-----------+
+|comment   |5      |7.69  |15       |-10.00     |
++----------+-------+------+---------+-----------+
+|empty     |10     |15.38 |89       |-79.00     |
++----------+-------+------+---------+-----------+
+
+
+
+Duplication
+-----------
+
++-------------------------+-------+---------+-----------+
+|                         |now    |previous |difference |
++=========================+=======+=========+===========+
+|nb duplicated lines      |34     |486      |-452.00    |
++-------------------------+-------+---------+-----------+
+|percent duplicated lines |51.515 |66.122   |-14.61     |
++-------------------------+-------+---------+-----------+
+
+
+
+External dependencies
+---------------------
+::
+
+    django 
+      \-conf 
+      | \-urls 
+      |   \-patterns (urls)
+      |   \-url (urls)
+      \-contrib 
+      | \-admin (admin)
+      \-db 
+      | \-models (models)
+      \-shortcuts 
+      | \-render (views)
+      \-test 
+      | \-TestCase (tests)
+      \-views 
+        \-generic 
+          \-base 
+            \-RedirectView (urls)
+
+
+
